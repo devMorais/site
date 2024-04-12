@@ -1,0 +1,21 @@
+{
+    "name": "devmorais/site",
+    "description": "site profissional",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "sistema\\": "sistema/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fernando Morais",
+            "email": "contato@devmorais.com.br",
+            "homepage": "https://www.devmorais.com.br"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0"
+    }
+}
