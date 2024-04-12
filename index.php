@@ -3,5 +3,7 @@
 //Arquivo index responsável pela inicialização do sistema
 require 'vendor/autoload.php';
 
-echo sistema\Nucleo\Helpers::saudacao();
+echo SITE_NOME;
+echo '<br>';
+echo SITE_DESCRICAO;
 
