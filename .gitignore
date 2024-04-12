@@ -1,2 +1,5 @@
+# Ignore Composer's vendor directory
 /vendor/
+
+# Ignore NetBeans private configuration files
 /nbproject/private/
