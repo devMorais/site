@@ -10,5 +10,7 @@ define('SITE_DESCRICAO', 'DevMorais - Soluções Digitais');
 
 //urls do sistema
 define('URL_PRODUCAO', 'https://devmorais.com.br');
-define('URL_DESENVOLVIMENTO', 'http://localhost/blog');
+define('URL_DESENVOLVIMENTO', 'http://localhost/devmorais');
+
+define('URL_SITE', 'devmorais/');
 

@@ -17,8 +17,13 @@
             "homepage": "https://www.devmorais.com.br"
         }
     ],
+    "support": {
+        "email": "contato@devmorais.com.br"
+    },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "pecee/simple-router": "dev-master",
+        "twig/twig": "^3.0"
     }
 }
