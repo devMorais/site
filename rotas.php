@@ -1,10 +1,22 @@
 <?php
 
 use Pecee\SimpleRouter\SimpleRouter;
+use sistema\Nucleo\Helpers;
 
-SimpleRouter::setDefaultNamespace('sistema\Controlador');
+try {
 
-SimpleRouter::get(URL_SITE, 'SiteControlador@index');
-SimpleRouter::get(URL_SITE . 'sobre-nos', 'SiteControlador@sobre');
+    SimpleRouter::setDefaultNamespace('sistema\Controlador');
 
-SimpleRouter::start();
+    SimpleRouter::get(URL_SITE, 'SiteControlador@index');
+    SimpleRouter::get(URL_SITE . 'sobre-nos', 'SiteControlador@sobre');
+
+    SimpleRouter::get(URL_SITE . '404', 'SiteControlador@erro404');
+
+    SimpleRouter::start();
+} catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $ex) {
+    if (Helpers::localhost()) {
+        echo $ex->getMessage();
+    } else {
+        Helpers::redirecionar('404');
+    }
+}

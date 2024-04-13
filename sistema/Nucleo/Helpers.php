@@ -2,8 +2,104 @@
 
 namespace sistema\Nucleo;
 
+use Exception;
+use sistema\Nucleo\Sessao;
+
+/**
+ * Classe Helper - Classe auxiliar responsável por prover métodos estáticos para manipular e validar dados no sistema.
+ *
+ * @author Fernando Morais <contato@devmorais.com.br>
+ * @copyright 2024 devmorais
+ */
 class Helpers
 {
+
+    public static function gerarToken(int $tamanho = 16): string
+    {
+        return bin2hex(random_bytes($tamanho));
+    }
+
+    /**
+     * Cria retorno json
+     * @param string $chave
+     * @param string $valor
+     * @return void
+     */
+    public static function json(string $chave, string $valor): void
+    {
+        header('Content-Type: application/json');
+
+        $json[$chave] = $valor;
+        echo json_encode($json);
+
+        exit();
+    }
+
+    /**
+     * Valida a senha
+     * @param string $senha
+     * @return bool
+     */
+    public static function validarSenha(string $senha): bool
+    {
+        if (mb_strlen($senha) >= 6 && mb_strlen($senha) <= 50) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Gera senha segura
+     * @param string $senha
+     * @return string
+     */
+    public static function gerarSenha(string $senha): string
+    {
+        return password_hash($senha, PASSWORD_DEFAULT, ['cost' => 10]);
+    }
+
+    /**
+     * Verifica a senha
+     * @param string $senha
+     * @param string $hash
+     * @return bool
+     */
+    public static function verificarSenha(string $senha, string $hash): bool
+    {
+        return password_verify($senha, $hash);
+    }
+
+    /**
+     * Instancia e retorna as mensagens flash por sessão
+     * @return string|null
+     */
+    public static function flash(): ?string
+    {
+        $sessao = new Sessao();
+
+        $flash = $sessao->flash();
+
+        if ($flash) {
+            echo $flash;
+        }
+        return null;
+    }
+
+    /**
+     * Redireciona para a url informada
+     * @param string $url
+     * @return void
+     */
+    public static function redirecionar(string $url = null): void
+    {
+        header('HTTP/1.1 302 Found');
+
+        $local = ($url ? self::url($url) : self::url());
+
+        header("Location: {$local} ");
+        exit();
+    }
 
     /**
      * Válida um número de CPF
@@ -15,7 +111,7 @@ class Helpers
         $cpf = self::limparNumero($cpf);
 
         if (mb_strlen($cpf) != 11 or preg_match('/(\d)\1{10}/', $cpf)) {
-            return false;
+            throw new Exception('O CPF precisa ter 11 digitos');
         }
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
@@ -23,7 +119,7 @@ class Helpers
             }
             $d = ((10 * $d) % 11) % 10;
             if ($cpf[$c] != $d) {
-                return false;
+                throw new Exception('CPF Inválido');
             }
         }
         return true;
@@ -100,8 +196,10 @@ class Helpers
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
         $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
 
-        if (str_starts_with($url, '/')) {
-            return $ambiente . $url;
+        if (!empty($url)) {
+            if (str_starts_with($url, '/')) {
+                return $ambiente . $url;
+            }
         }
         return $ambiente . '/' . $url;
     }
@@ -219,22 +317,22 @@ class Helpers
         $hora = date('H');
 
         $saudacao = match (true) {
-            $hora >= 0 and $hora <= 5 => 'boa madrugada',
-            $hora >= 6 and $hora <= 12 => 'bom dia',
-            $hora >= 13 and $hora <= 18 => 'boa tarde',
-            default => 'boa noite'
+            $hora >= 0 and $hora <= 5 => 'Boa madrugada',
+            $hora >= 6 and $hora <= 12 => 'Bom dia',
+            $hora >= 13 and $hora <= 18 => 'Boa tarde',
+            default => 'Boa noite'
         };
 
         return $saudacao;
     }
 
     /**
-     * Resume um texto
-     * 
-     * @param string $texto texto para resumir
-     * @param int $limite quantidade de caracteres
-     * @param string $continue opcional - o que deve ser exibido ao final do resumo
-     * @return string texto resumido
+     * Resume um texto para um limite de caracteres.
+     *
+     * @param string $texto O texto a ser resumido.
+     * @param int $limite O limite de caracteres para o resumo.
+     * @param string $continue O texto que será adicionado ao final do resumo (opcional, padrão: '...').
+     * @return string O texto resumido.
      */
     public static function resumirTexto(string $texto, int $limite, string $continue = '...'): string
     {

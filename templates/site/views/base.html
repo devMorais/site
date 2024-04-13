@@ -4,7 +4,13 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <title>DevMorais | Soluções Digitais</title>
+        <title>
+            {% if titulo %}
+            {{titulo}}
+            {% else %}
+            {{constant('SITE_NOME')}}
+            {% endif %}
+        </title>
         <meta content="DevMorais oferece soluções digitais especializadas em design, desenvolvimento web, desenvolvimento de aplicativos e motion graphics. Entre em contato para transformar suas ideias em realidade!" name="description">
         <meta content="design, desenvolvimento web, desenvolvimento de aplicativos, motion graphics, design gráfico, UX/UI, front-end, back-end, animação, interatividade" name="keywords">
 
