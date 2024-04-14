@@ -10,9 +10,11 @@
             <ul>
                 <li><a href="{{ url() }}" class="active">Home</a></li>
                 <li><a href="{{url('sobre-nos')}}">Sobre</a></li>
-                <li class="dropdown"><a href="#"><span>Galeria</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <li class="dropdown"><a href="#"><span>Categorias</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="gallery.html">Motion</a></li>
+                        {% for categoria in categorias %}
+                        <li><a href="{{url('categoria/'~categoria.id)}}">{{categoria.titulo}}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
                 <li><a href="services.html">Serviços</a></li>

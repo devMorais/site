@@ -4,6 +4,7 @@ namespace sistema\Controlador;
 
 use sistema\Nucleo\Controlador;
 use sistema\Modelo\PostModelo;
+use sistema\Modelo\CategoriaModelo;
 use sistema\Nucleo\Helpers;
 
 class SiteControlador extends Controlador
@@ -18,7 +19,8 @@ class SiteControlador extends Controlador
     {
         $posts = (new PostModelo())->busca();
         echo $this->template->renderizar('index.html', [
-            'posts' => $posts
+            'posts' => $posts,
+            'categorias' => $this->categorias()
         ]);
     }
 
@@ -29,21 +31,40 @@ class SiteControlador extends Controlador
             Helpers::redirecionar('404');
         }
         echo $this->template->renderizar('post.html', [
-            'post' => $post
+            'post' => $post,
+            'categorias' => $this->categorias()
+        ]);
+    }
+
+    public function categorias()
+    {
+        return (new CategoriaModelo())->busca();
+    }
+
+    public function categoria(int $id): void
+    {
+        $posts = (new CategoriaModelo())->posts($id);
+        $categoria = (new CategoriaModelo())->buscaPorId($id);
+        echo $this->template->renderizar('categoria.html', [
+            'posts' => $posts,
+            'categoria' => $categoria,
+            'categorias' => $this->categorias()
         ]);
     }
 
     public function sobre(): void
     {
         echo $this->template->renderizar('sobre.html', [
-            'titulo' => 'devmorais - Soluções Digitais | Sobre'
+            'titulo' => 'devmorais - Soluções Digitais | Sobre',
+            'categorias' => $this->categorias()
         ]);
     }
 
     public function erro404(): void
     {
         echo $this->template->renderizar('404.html', [
-            'titulo' => 'Página não encontrada'
+            'titulo' => 'Página não encontrada',
+            'categorias' => $this->categorias()
         ]);
     }
 }

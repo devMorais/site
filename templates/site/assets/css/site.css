@@ -135,7 +135,7 @@ h6 {
 }
 
 .page-header .cta-btn:hover {
-    background: #2cbc85;
+    background: #cbcc85;
 }
 
 /*--------------------------------------------------------------
@@ -870,7 +870,7 @@ h6 {
 }
 
 .gallery-single .portfolio-info .btn-visit:hover {
-    background: #2cbc85;
+    background: #cbcc85;
 }
 
 .gallery-single .portfolio-description h2 {
@@ -1229,7 +1229,7 @@ h6 {
 }
 
 .hero .btn-get-started:hover {
-    background: #2cbc85;
+    background: #cbcc85;
 }
 
 @media (max-width: 768px) {
