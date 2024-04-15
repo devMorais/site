@@ -42,4 +42,3 @@ define('EMAIL_PORTA', '465');
 define('EMAIL_USUARIO', 'contato@devmorais.com.br');
 define('EMAIL_SENHA', 'Caita92*/');
 define('EMAIL_REMETENTE', ['email' => EMAIL_USUARIO, 'nome' => SITE_NOME]);
-

@@ -2,29 +2,53 @@
 
 namespace sistema\Modelo;
 
-use sistema\Nucleo\Conexao;
+use sistema\Nucleo\Modelo;
 
 /**
- * Description of PostModelo
+ * Classe PostModelo
  *
- * @author DevMorais
+ * @author Ronaldo Aires
  */
-class PostModelo
+class PostModelo extends Modelo
 {
 
-    public function busca(): array
+    public function __construct()
     {
-        $query = "SELECT * FROM posts ORDER BY id DESC";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-        return $resultado;
+        parent::__construct('posts');
     }
 
-    public function buscaPorId(int $id): bool|object
+    /**
+     * Busca a categoria pelo ID
+     * @return CategoriaModelo|null
+     */
+    public function categoria(): ?CategoriaModelo
     {
-        $query = "SELECT * FROM posts WHERE id = {$id}";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetch();
-        return $resultado;
+        if ($this->categoria_id) {
+            return (new CategoriaModelo())->buscaPorId($this->categoria_id);
+        }
+        return null;
     }
+
+    /**
+     * Busca o usuário pelo ID
+     * @return UsuarioModelo|null
+     */
+    public function usuario(): ?UsuarioModelo
+    {
+        if ($this->usuario_id) {
+            return (new UsuarioModelo())->buscaPorId($this->usuario_id);
+        }
+        return null;
+    }
+    
+    /**
+     * Salva o post com slug
+     * @return bool
+     */
+    public function salvar(): bool
+    {
+        $this->slug();
+        return parent::salvar();
+    }
+
 }

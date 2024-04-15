@@ -8,22 +8,23 @@
                 <h2>Eu sou <span>Fernando Morais</span>, Desenvolvedor Full Stack com habilidades em Motion Design.</h2>
                 <p>Tenho grande paixão pela tecnologia e dedicação em entregar os melhores resultados em todos os meus projetos. Possuo habilidades e certificações em PHP, MySQL, JavaScript e Motion Design, com experiência em frameworks como Laravel e CodeIgniter.</p>
                 <!--<a href="contact.html" class="btn-get-started">Veja meu vídeo</a>-->
-                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox preview-link btn-watch-video"><i class="bi bi-play-circle"></i></a>
+                <a href="https://www.youtube.com/watch?v=vHfbv4b0qqs" class="glightbox preview-link btn-watch-video"><i class="bi bi-play-circle"></i></a>
             </div>
         </div>
+        
     </div>
 </section>
 <main id="main" data-aos="fade" data-aos-delay="1500">
     <section id="gallery" class="gallery">
         <div class="container-fluid">
             <div class="row gy-4 justify-content-center">
-                {% for post in posts %}
+                {% for post in posts.posts %}
                 <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="gallery-item h-100">                        
-                        <img src="{{url('templates/site/assets/img/gallery/gallery-1.jpg')}}" class="img-fluid" alt="">
+                        <img src="{{url('uploads/imagens/thumbs/'~post.capa)}}" class="img-fluid" alt="">
                         <div class="gallery-links d-flex align-items-center justify-content-center">
-                            <a href="{{url('templates/site/assets/img/gallery/gallery-1.jpg')}}" title="{{post.titulo}}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                            <a href="{{url('post/'~post.id)}}" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                            <a href="{{url('uploads/imagens/thumbs/'~post.capa)}}" title="{{post.titulo}}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                            <a href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
                 </div>

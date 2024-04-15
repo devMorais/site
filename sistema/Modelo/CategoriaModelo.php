@@ -3,36 +3,44 @@
 namespace sistema\Modelo;
 
 use sistema\Nucleo\Conexao;
+use sistema\Nucleo\Modelo;
 
 /**
- * Description of CategoriaModelo
+ * Classe CategoriaModelo
  *
- * @author DevMorais
+ * @author Ronaldo Aires
  */
-class CategoriaModelo
+class CategoriaModelo extends Modelo
 {
 
-    public function busca(): array
+    public function __construct()
     {
-        $query = "SELECT * FROM categorias ORDER BY id DESC";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-        return $resultado;
+        parent::__construct('categorias');
     }
 
-    public function buscaPorId(int $id): bool|object
+    /**
+     * Retorna o total de posts de uma categoria
+     * @param int $categoriaId
+     * @return int
+     */
+    public function totalPosts(int $categoriaId): int
     {
-        $query = "SELECT * FROM categorias WHERE id = {$id}";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetch();
-        return $resultado;
+        $query = "SELECT COUNT(*) as total FROM posts WHERE categoria_id = {$categoriaId} ";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute();
+        $resultado = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $resultado['total'];
     }
 
-    public function posts(int $id): array
+    /**
+     * Salva o post com slug
+     * @return bool
+     */
+    public function salvar(): bool
     {
-        $query = "SELECT * FROM posts WHERE categoria_id = {$id} ORDER BY id DESC";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-        return $resultado;
+        $this->slug();
+        return parent::salvar();
     }
+
 }

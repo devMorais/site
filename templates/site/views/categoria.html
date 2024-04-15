@@ -6,9 +6,11 @@
         <div class="container position-relative">
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6 text-center">
-                    <h2>{{categoria.titulo}} (16 images)</h2>
+                    <h2>{{categoria.titulo}}</h2>
                     <p>{{categoria.texto}}</p>
-                    <a class="cta-btn" href="contact.html">Disponível para contratação</a>
+                    <a class="cta-btn" href="https://api.whatsapp.com/send?phone=5561983411859&text=Olá%20vim%20do%20seu%20site" target="_blank">
+                        <i class="bi bi-whatsapp"></i> Disponível para contratação
+                    </a>
                 </div>
             </div>
         </div>
@@ -19,10 +21,10 @@
                 {% for post in posts %}
                 <div class="col-xl-3 col-lg-4 col-md-6">
                     <div class="gallery-item h-100">
-                        <img src="{{url('templates/site/assets/img/gallery/gallery-1.jpg')}}" class="img-fluid" alt="">
+                        <img src="{{url('uploads/imagens/thumbs/'~post.capa)}}" class="img-fluid" alt="">
                         <div class="gallery-links d-flex align-items-center justify-content-center">
-                            <a href="{{url('templates/site/assets/img/gallery/gallery-1.jpg')}}" title="{{post.titulo}}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                            <a href="{{url('post/'~post.id)}}" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                            <a href="{{url('uploads/imagens/thumbs/'~post.capa)}}" title="{{post.titulo}}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                            <a href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" class="details-link"><i class="bi bi-link-45deg"></i></a>
                         </div>
                     </div>
                 </div>
@@ -30,6 +32,10 @@
             </div>
         </div>
     </section>
+    {{paginacao|raw}}
+    <div class="text-center">
+        <small class="lead">{{paginacaoInfo}}</small>
+    </div>
 </main>
 {% endblock %}
 

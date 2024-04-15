@@ -8,17 +8,17 @@ use sistema\Nucleo\Sessao;
 /**
  * Classe Helper - Classe auxiliar responsável por prover métodos estáticos para manipular e validar dados no sistema.
  *
- * @author Fernando Morais <contato@devmorais.com.br>
- * @copyright 2024 devmorais
+ * @author Ronaldo Aires <ceo@unset.com.br>
+ * @copyright 2022 UnSet
  */
 class Helpers
 {
-
+    
     public static function gerarToken(int $tamanho = 16): string
     {
         return bin2hex(random_bytes($tamanho));
     }
-
+    
     /**
      * Cria retorno json
      * @param string $chave
@@ -28,10 +28,10 @@ class Helpers
     public static function json(string $chave, string $valor): void
     {
         header('Content-Type: application/json');
-
+        
         $json[$chave] = $valor;
         echo json_encode($json);
-
+        
         exit();
     }
 
@@ -79,7 +79,7 @@ class Helpers
         $sessao = new Sessao();
 
         $flash = $sessao->flash();
-
+        
         if ($flash) {
             echo $flash;
         }
@@ -326,14 +326,14 @@ class Helpers
         return $saudacao;
     }
 
-    /**
-     * Resume um texto para um limite de caracteres.
-     *
-     * @param string $texto O texto a ser resumido.
-     * @param int $limite O limite de caracteres para o resumo.
-     * @param string $continue O texto que será adicionado ao final do resumo (opcional, padrão: '...').
-     * @return string O texto resumido.
-     */
+/**
+ * Resume um texto para um limite de caracteres.
+ *
+ * @param string $texto O texto a ser resumido.
+ * @param int $limite O limite de caracteres para o resumo.
+ * @param string $continue O texto que será adicionado ao final do resumo (opcional, padrão: '...').
+ * @return string O texto resumido.
+ */
     public static function resumirTexto(string $texto, int $limite, string $continue = '...'): string
     {
         $textoLimpo = trim(strip_tags($texto));
@@ -345,4 +345,5 @@ class Helpers
 
         return $resumirTexto . $continue;
     }
+
 }

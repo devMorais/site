@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 {% block conteudo %} 
 <main id="main" data-aos="fade" data-aos-delay="1500">
-
-    <!-- ======= End Page Header ======= -->
     <div class="page-header d-flex align-items-center">
         <div class="container position-relative">
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6 text-center">
-                    <a class="cta-btn" href="contact.html">Disponível para contratação</a>
+                    {% if post.capa and post.capa_ativa == 1 %}
+                    <div class="gallery-item h-100">                        
+                        <img src="{{url('uploads/imagens/'~post.capa)}}" class="img-fluid" alt="">
+                        <div class="gallery-links d-flex align-items-center justify-content-center">
+                            <a href="{{url('uploads/imagens/'~post.capa)}}" title="{{post.titulo}}" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                            <a href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                        </div>
+                    </div>
+                    {% endif %} 
+                   <a class="cta-btn" href="https://api.whatsapp.com/send?phone=5561983411859&text=Olá%20vim%20do%20seu%20site" target="_blank">
+                        <i class="bi bi-whatsapp"></i> Disponível para contratação
+                    </a>
                 </div>
             </div>
         </div>
@@ -17,7 +26,7 @@
             <div class="row justify-content-between gy-4 mt-4">
                 <div class="col-lg-8">
                     <div class="portfolio-description">
-                        <h2>{{post.titulo | upper}}</h2>
+                        <h2>{{post.titulo}}</h2>
                         <p>
                             {{post.texto}}
                         </p>                        
@@ -27,11 +36,10 @@
                     <div class="portfolio-info">
                         <h3>Informações do projeto</h3>
                         <ul>
-                            <li><strong>Categoria</strong> <span>Sistemas</span></li>
-                            <li><strong>Área</strong> <span>Oficinas mecânicas</span></li>
-                            <li><strong>Data do Projeto</strong> <span>01 March, 2022</span></li>
-                            <li><strong>Demonstração</strong> <a href="#">www.example.com</a></li>
-                            <li><a href="#" class="btn-visit align-self-start">Demonstração ao vivo</a></li>
+                            <li><strong>Categoria</strong> <span>{{post.categoria.titulo}}</span></li>
+                            <li><strong>Data do Projeto</strong> <span>{{ post.cadastrado_em|date("d/m/Y") }} às {{ post.cadastrado_em|date("H:i") }}</span></li>
+                            <!--                            <li><strong>Demonstração</strong> <a href="#">www.example.com</a></li>
+                                                        <li><a href="#" class="btn-visit align-self-start">Demonstração ao vivo</a></li>-->
                         </ul>
                     </div>
                 </div>

@@ -13,16 +13,18 @@
                 <li class="dropdown"><a href="#"><span>Categorias</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         {% for categoria in categorias %}
-                        <li><a href="{{url('categoria/'~categoria.id)}}">{{categoria.titulo}}</a></li>
+                        <li><a href="{{url('categoria/'~categoria.slug)}}">{{categoria.titulo}}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a href="services.html">Serviços</a></li>
-                <li><a href="contact.html">Contato</a></li>
+                <li><a href="{{url('servicos')}}">Serviços</a></li>
+                <li><a href="{{url('contato')}}">Contato</a></li>
             </ul>
         </nav>
         <div class="header-social-links">
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.instagram.com/devmoraiis/" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://github.com/devMorais" target="_blank" class="github"><i class="bi bi-github"></i></a>
+            <a href="https://www.linkedin.com/in/fernando-aguiar92/" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
         </div>
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
